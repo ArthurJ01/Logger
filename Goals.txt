@@ -1,0 +1,22 @@
+Goals for logger:
+
+-lumberjack ai:
+	walk to tree //done
+	cut tree
+	pick up tree
+	walk to river
+	drop in river
+
+-water "physics"
+	move objects in stream along stream
+	or
+	take objects and put them at end of stream
+
+-buildings
+	net (log accepter)
+	sawmill (take log and create plank)
+	seller
+	lumberjack hut
+
+-player input
+	buy more lumberjacks
