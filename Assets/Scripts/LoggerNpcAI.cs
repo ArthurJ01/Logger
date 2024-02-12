@@ -5,25 +5,38 @@ using UnityEngine.AI;
 public class LoggerNpcAI : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
-    [SerializeField] private float minimumDistanceToTree = 2f;
-    [SerializeField] private float rotationSpeed = 5f; // Adjust the rotation speed as needed
+
     [SerializeField] private float choppingTime = 3f; // Adjust the chopping time as needed
 
+    
 
     private NavMeshAgent navMeshAgent;
     private enum NpcState { MovingToTree, Chopping, PickUpLog, Idle }
     private NpcState currentState = NpcState.Idle;
     private float timer;
+
+    //done
     private Quaternion targetRotation;
     private GameObject nearestTree;
+    [SerializeField] private float minimumDistanceToTree = 2f;
+    [SerializeField] private float rotationSpeed = 5f; // Adjust the rotation speed as needed
 
+    private MoveToTree MoveToTree;
+
+    //done
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        MoveToTree = GetComponent<MoveToTree>();
+
 
         if (navMeshAgent == null)
         {
             Debug.LogError("NavMeshAgent component is missing on the NPC GameObject.");
+        }
+        if (MoveToTree == null)
+        {
+            Debug.LogError("MoveToTree script is missing on the NPC GameObject.");
         }
     }
 
@@ -32,7 +45,15 @@ public class LoggerNpcAI : MonoBehaviour
         switch (currentState)
         {
             case NpcState.MovingToTree:
-                UpdateMovingState();
+                
+
+                
+                MoveToTree.MoveToNearestTree();
+
+                if (MoveToTree.IsActionCompleted())
+                {
+                    currentState = NpcState.Chopping;
+                }
                 Debug.Log("moving to tree state");
                 break;
 
@@ -91,6 +112,7 @@ public class LoggerNpcAI : MonoBehaviour
 
     }
 
+    //done
     void UpdateMovingState()
     {
         nearestTree = FindNearestTree();
@@ -115,6 +137,7 @@ public class LoggerNpcAI : MonoBehaviour
         }
     }
 
+    //done
     private IEnumerator SmoothTurn()
     {
         while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
@@ -129,6 +152,7 @@ public class LoggerNpcAI : MonoBehaviour
         currentState = NpcState.Chopping;
     }
 
+    //done
     private Quaternion CalculateTargetRotation(Vector3 targetPosition)
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
@@ -155,7 +179,7 @@ public class LoggerNpcAI : MonoBehaviour
 
         currentState = NpcState.Idle;
     }
-
+    //done
     private GameObject FindNearestTree()
     {
         GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
@@ -180,6 +204,7 @@ public class LoggerNpcAI : MonoBehaviour
         }
         return nearestTree;
     }
+
     private GameObject FindNearestlog()
     {
         GameObject[] logs = GameObject.FindGameObjectsWithTag("Log");
