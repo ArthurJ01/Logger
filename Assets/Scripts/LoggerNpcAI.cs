@@ -12,7 +12,7 @@ public class LoggerNpcAI : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
     private enum NpcState { MovingToTree, Chopping, PickUpLog, Idle }
-    private NpcState currentState = NpcState.Idle;
+    private NpcState currentState = NpcState.MovingToTree;
     private float timer;
 
     //done
@@ -44,21 +44,17 @@ public class LoggerNpcAI : MonoBehaviour
     {
         switch (currentState)
         {
-            case NpcState.MovingToTree:
-                
-
-                
+            case NpcState.MovingToTree:                           
                 MoveToTree.MoveToNearestTree();
-
                 if (MoveToTree.IsActionCompleted())
                 {
-                    currentState = NpcState.Chopping;
+                    currentState = NpcState.Idle;
                 }
                 Debug.Log("moving to tree state");
                 break;
 
             case NpcState.Chopping:
-                UpdateChoppingState(nearestTree);
+                UpdateChoppingState(MoveToTree.FindNearestTree());
                 Debug.Log("chopping state");
                 break;
 
@@ -77,7 +73,7 @@ public class LoggerNpcAI : MonoBehaviour
                 }
                 if (areThereTreesInRange())
                 {
-                    currentState = NpcState.MovingToTree;
+                    currentState = NpcState.Chopping;
                 }
                 break;
         }
@@ -85,7 +81,7 @@ public class LoggerNpcAI : MonoBehaviour
 
     private bool areThereLogsInRange()
     {
-        if (FindNearestTree() == null)
+        if (MoveToTree.FindNearestTree() == null)
         {
             return false;
         }
@@ -101,7 +97,7 @@ public class LoggerNpcAI : MonoBehaviour
 
     private bool areThereTreesInRange()
     {
-        if (FindNearestTree() == null)
+        if (MoveToTree.FindNearestTree() == null)
         {
             return false;
         }
@@ -112,52 +108,9 @@ public class LoggerNpcAI : MonoBehaviour
 
     }
 
-    //done
-    void UpdateMovingState()
-    {
-        nearestTree = FindNearestTree();
 
-        if (nearestTree != null)
-        {
-            float distanceToTree = Vector3.Distance(transform.position, nearestTree.transform.position);
 
-            // If the NPC is far enough from the tree, move towards it
-            if (distanceToTree > minimumDistanceToTree)
-            {
-                navMeshAgent.SetDestination(nearestTree.transform.position);
-            }
-            else
-            {
-                // Stop the NPC when it is close enough to the tree
-                navMeshAgent.ResetPath();
 
-                targetRotation = CalculateTargetRotation(nearestTree.transform.position);
-                StartCoroutine(SmoothTurn());
-            }
-        }
-    }
-
-    //done
-    private IEnumerator SmoothTurn()
-    {
-        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-            yield return null;
-        }
-
-        timer = 0f;
-
-        // Transition to the Chopping state
-        currentState = NpcState.Chopping;
-    }
-
-    //done
-    private Quaternion CalculateTargetRotation(Vector3 targetPosition)
-    {
-        Vector3 direction = (targetPosition - transform.position).normalized;
-        return Quaternion.LookRotation(direction);
-    }
 
     private void UpdateChoppingState(GameObject nearestTree)
     {
@@ -179,31 +132,7 @@ public class LoggerNpcAI : MonoBehaviour
 
         currentState = NpcState.Idle;
     }
-    //done
-    private GameObject FindNearestTree()
-    {
-        GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
 
-        if (trees.Length == 0)
-        {
-            return null;
-        }
-
-        GameObject nearestTree = trees[0];
-        float shortestDistance = Vector3.Distance(transform.position, nearestTree.transform.position);
-
-        foreach (GameObject tree in trees)
-        {
-            float distanceToTree = Vector3.Distance(transform.position, tree.transform.position);
-
-            if (distanceToTree < shortestDistance)
-            {
-                nearestTree = tree;
-                shortestDistance = distanceToTree;
-            }
-        }
-        return nearestTree;
-    }
 
     private GameObject FindNearestlog()
     {

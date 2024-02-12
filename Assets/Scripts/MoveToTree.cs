@@ -38,7 +38,7 @@ public class MoveToTree : MoveTo
         actionCompleted = true;
     }
 
-    private GameObject FindNearestTree()
+    public GameObject FindNearestTree()
     {
         GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
 
