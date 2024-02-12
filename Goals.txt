@@ -2,7 +2,7 @@ Goals for logger:
 
 -lumberjack ai:
 	walk to tree //done
-	cut tree
+	cut tree //done
 	pick up tree
 	walk to river
 	drop in river
