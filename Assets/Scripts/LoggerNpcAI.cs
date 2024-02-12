@@ -13,7 +13,7 @@ public class LoggerNpcAI : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private enum NpcState { MovingToTree, Chopping, PickUpLog, Idle }
     private NpcState currentState = NpcState.MovingToTree;
-    private float timer;
+    private float timer = 0;
 
     //done
     private Quaternion targetRotation;
@@ -73,7 +73,9 @@ public class LoggerNpcAI : MonoBehaviour
                 }
                 if (areThereTreesInRange())
                 {
+                    
                     currentState = NpcState.Chopping;
+
                 }
                 break;
         }

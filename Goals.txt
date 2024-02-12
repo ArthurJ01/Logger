@@ -13,8 +13,8 @@ Split up states to classes:
 		else
 			go to rest area
 
-	walk to tree //done
-	cut tree //done
+	walk to tree (MoveToTree class) //done
+	cut tree 
 	pick up tree
 	walk to river
 	drop in river
