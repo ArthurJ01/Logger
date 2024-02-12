@@ -1,6 +1,18 @@
 Goals for logger:
 
 -lumberjack ai:
+
+Split up states to classes:
+	
+	make all states go back to idle
+
+	Idle: 	Are there trees in range to chop?
+		Are there logs in range to pickup?
+		Are there logs in range to walk to?
+		Are there trees in range to walk to?
+		else
+			go to rest area
+
 	walk to tree //done
 	cut tree //done
 	pick up tree

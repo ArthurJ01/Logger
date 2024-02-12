@@ -11,8 +11,8 @@ public class LoggerNpcAI : MonoBehaviour
 
 
     private NavMeshAgent navMeshAgent;
-    private enum NpcState { MovingToTree, Chopping, PickUpTree }
-    private NpcState currentState = NpcState.MovingToTree;
+    private enum NpcState { MovingToTree, Chopping, PickUpLog, Idle }
+    private NpcState currentState = NpcState.Idle;
     private float timer;
     private Quaternion targetRotation;
     private GameObject nearestTree;
@@ -33,21 +33,62 @@ public class LoggerNpcAI : MonoBehaviour
         {
             case NpcState.MovingToTree:
                 UpdateMovingState();
+                Debug.Log("moving to tree state");
                 break;
 
             case NpcState.Chopping:
                 UpdateChoppingState(nearestTree);
+                Debug.Log("chopping state");
                 break;
 
-            case NpcState.PickUpTree:
-                PickUpTree();
+            case NpcState.PickUpLog:
+                PickUpLog();
+                Debug.Log("pickup state");
+                break;
+
+            case NpcState.Idle:
+                Debug.Log("Idle state");
+
+
+                if (areThereLogsInRange())
+                {
+                    currentState = NpcState.PickUpLog;
+                }
+                if (areThereTreesInRange())
+                {
+                    currentState = NpcState.MovingToTree;
+                }
                 break;
         }
     }
 
-    private void PickUpTree()
+    private bool areThereLogsInRange()
     {
-        
+        if (FindNearestTree() == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    private void PickUpLog()
+    {
+        Debug.Log("picking up log");
+    }
+
+    private bool areThereTreesInRange()
+    {
+        if (FindNearestTree() == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
     }
 
     void UpdateMovingState()
@@ -74,7 +115,7 @@ public class LoggerNpcAI : MonoBehaviour
         }
     }
 
-    IEnumerator SmoothTurn()
+    private IEnumerator SmoothTurn()
     {
         while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
         {
@@ -82,42 +123,40 @@ public class LoggerNpcAI : MonoBehaviour
             yield return null;
         }
 
+        timer = 0f;
+
         // Transition to the Chopping state
         currentState = NpcState.Chopping;
-        timer = 0f;
     }
 
-    Quaternion CalculateTargetRotation(Vector3 targetPosition)
+    private Quaternion CalculateTargetRotation(Vector3 targetPosition)
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
         return Quaternion.LookRotation(direction);
     }
 
-    void UpdateChoppingState(GameObject nearestTree)
+    private void UpdateChoppingState(GameObject nearestTree)
     {
-        Debug.Log("Starting to chop tree");
+
         // Simulate chopping by waiting for a certain duration
         timer += Time.deltaTime;
         if (timer >= choppingTime)
         {
-            currentState = NpcState.PickUpTree;
             ChopTree(nearestTree);
+           
+            timer = 0f;
+            
         }
     }
 
-    void ChopTree(GameObject nearestTree)
-    {
-       
+    private void ChopTree(GameObject nearestTree)
+    {    
         nearestTree.GetComponent<TreeLogic>().spawnLog();
 
-        //Destroy(nearestTree);
-
-
-
-        Debug.Log("tree chopped!");
+        currentState = NpcState.Idle;
     }
 
-    GameObject FindNearestTree()
+    private GameObject FindNearestTree()
     {
         GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
 
@@ -140,5 +179,29 @@ public class LoggerNpcAI : MonoBehaviour
             }
         }
         return nearestTree;
+    }
+    private GameObject FindNearestlog()
+    {
+        GameObject[] logs = GameObject.FindGameObjectsWithTag("Log");
+
+        if (logs.Length == 0)
+        {
+            return null;
+        }
+
+        GameObject nearestLog = logs[0];
+        float shortestDistance = Vector3.Distance(transform.position, nearestLog.transform.position);
+
+        foreach (GameObject log in logs)
+        {
+            float distanceToLog = Vector3.Distance(transform.position, log.transform.position);
+
+            if (distanceToLog < shortestDistance)
+            {
+                nearestLog = log;
+                shortestDistance = distanceToLog;
+            }
+        }
+        return nearestLog;
     }
 }
