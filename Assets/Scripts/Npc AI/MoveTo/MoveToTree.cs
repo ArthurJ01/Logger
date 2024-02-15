@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class MoveToTree : MoveTo
 {
-    [SerializeField] private float minimumDistanceToTree = 2f;
-
+    
+/*
     private GameObject nearestTree;
 
     private bool actionCompleted = false;
 
-    public void MoveToNearestTree()
+    private string treeTag = "Tree";
+
+    public void MoveToNearestTree(RangeChecker rangeChecker)
     {
-        nearestTree = FindNearestTree();
+
+        actionCompleted = false;
+        
+        nearestTree = rangeChecker.FindNearestObjectByTag(treeTag);
 
         if (nearestTree != null)
         {
@@ -32,35 +37,14 @@ public class MoveToTree : MoveTo
                 StartCoroutine(SmoothTurn(ActionCompleted));
             }
         }
+        else
+        {
+            Debug.Log("No trees in range");
+        }
     }
     protected void ActionCompleted()
     {
         actionCompleted = true;
-    }
-
-    public GameObject FindNearestTree()
-    {
-        GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
-
-        if (trees.Length == 0)
-        {
-            return null;
-        }
-
-        GameObject nearestTree = trees[0];
-        float shortestDistance = Vector3.Distance(transform.position, nearestTree.transform.position);
-
-        foreach (GameObject tree in trees)
-        {
-            float distanceToTree = Vector3.Distance(transform.position, tree.transform.position);
-
-            if (distanceToTree < shortestDistance)
-            {
-                nearestTree = tree;
-                shortestDistance = distanceToTree;
-            }
-        }
-        return nearestTree;
     }
 
     public bool IsActionCompleted()
@@ -72,4 +56,10 @@ public class MoveToTree : MoveTo
     {
         actionCompleted = b;
     }
+
+    public GameObject getCurrentNearestTree()
+    {
+        return nearestTree;
+    }
+*/
 }

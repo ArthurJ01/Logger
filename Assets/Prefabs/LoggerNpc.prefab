@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7218517194023409673}
   - component: {fileID: 7218517194023409672}
   - component: {fileID: 7218517194023409670}
-  - component: {fileID: 7218517194023409675}
+  - component: {fileID: 911792788}
   m_Layer: 0
   m_Name: LoggerNpc
   m_TagString: Untagged
@@ -153,9 +153,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   choppingTime: 3
-  minimumDistanceToTree: 1.5
+  maxWalkableRange: 500
+  maxActionRange: 2
   rotationSpeed: 3
---- !u!114 &7218517194023409675
+--- !u!114 &911792788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,7 +165,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7218517194023409667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4dabc9b8c13a3499d6950240885511, type: 3}
+  m_Script: {fileID: 11500000, guid: 021c928287c82b34e901a03f7fe16314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 5

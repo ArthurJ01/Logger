@@ -664,6 +664,25 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &911792778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7218517194023409667, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
+  m_PrefabInstance: {fileID: 7218517195126186353}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &911792788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911792778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021c928287c82b34e901a03f7fe16314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 5
+  minimumDistanceToTree: 2
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,6 +859,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoggerNpc
       objectReference: {fileID: 0}
+    - target: {fileID: 7218517194023409670, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
+      propertyPath: maxActionRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218517194023409670, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
+      propertyPath: maxWalkableRange
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218517194023409670, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
+      propertyPath: minimumDistanceToTree
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7218517194023409671, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -884,5 +915,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7218517194023409675, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
