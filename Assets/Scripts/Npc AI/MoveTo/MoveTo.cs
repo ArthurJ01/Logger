@@ -34,17 +34,19 @@ public class MoveTo : MonoBehaviour
     private void MoveToThis(string tag, RangeChecker rangeChecker)
     {
         nearestObject = rangeChecker.FindNearestObjectByTag(tag);
-        distanceToTree = Vector3.Distance(transform.position, nearestObject.transform.position);
+        Transform objWaypoint = nearestObject.transform.Find("waypoint");
+        distanceToTree = Vector3.Distance(transform.position, objWaypoint.position);
            
-        if (nearestObject != null && !navMeshAgent.hasPath)
+        if (objWaypoint != null && !navMeshAgent.hasPath)
         {                
-            navMeshAgent.SetDestination(nearestObject.transform.position);               
+            navMeshAgent.SetDestination(objWaypoint.position);               
             actionCompleted = false;              
         }
         else
         {               
             Debug.Log("No objects in range");
         }
+        /*
         if (navMeshAgent.hasPath)
         {
             if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
@@ -53,7 +55,7 @@ public class MoveTo : MonoBehaviour
                 SetActionCompleted(true);
             }
         }
-
+        */
     }
 
     public void MoveToNearestObject(string tag, RangeChecker rangeChecker )
