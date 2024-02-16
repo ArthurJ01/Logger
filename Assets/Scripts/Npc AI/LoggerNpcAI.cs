@@ -51,13 +51,16 @@ public class LoggerNpcAI : MonoBehaviour
         {
             case NpcState.MovingToTree:
 
-                do
+               
+                
+                moveTo.MoveToNearestObject(treeTag, rangeChecker);
+                
+                
+                if(moveTo.IsActionCompleted())
                 {
-                    moveTo.MoveToNearestObject(treeTag, rangeChecker);
+                    currentState = NpcState.Idle;
                 }
-                while (!moveTo.isActionCompleted());
-
-                currentState = NpcState.Idle;
+                
 
 
                 break;
@@ -106,7 +109,7 @@ public class LoggerNpcAI : MonoBehaviour
 
                 
         }
-        Debug.Log(currentState);
+        //Debug.Log(currentState);
     }
 
     private void PickUpLog()

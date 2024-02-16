@@ -7,13 +7,16 @@ public class MoveTo : MonoBehaviour
 {
     
     [SerializeField] private float rotationSpeed = 5f;
-    [SerializeField] protected float minimumDistanceToTree = 2f;
+    private float minimumDistanceToObject = 1f;
 
     private GameObject nearestObject;
 
     protected Quaternion targetRotation;
     protected NavMeshAgent navMeshAgent;
     private bool actionCompleted;
+    private bool actionStarted;
+
+    private float distanceToTree;
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -23,13 +26,54 @@ public class MoveTo : MonoBehaviour
             Debug.LogError("NavMeshAgent component is missing on the NPC GameObject.");
         }
 
+        //navMeshAgent.stoppingDistance = minimumDistanceToObject;
         actionCompleted = false;
+        actionStarted = false;
+    }
+
+    private void MoveToThis(string tag, RangeChecker rangeChecker)
+    {
+        nearestObject = rangeChecker.FindNearestObjectByTag(tag);
+        distanceToTree = Vector3.Distance(transform.position, nearestObject.transform.position);
+           
+        if (nearestObject != null && !navMeshAgent.hasPath)
+        {                
+            navMeshAgent.SetDestination(nearestObject.transform.position);               
+            actionCompleted = false;              
+        }
+        else
+        {               
+            Debug.Log("No objects in range");
+        }
+        if (navMeshAgent.hasPath)
+        {
+            if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
+            {
+               // navMeshAgent.ResetPath();
+                SetActionCompleted(true);
+            }
+        }
+
     }
 
     public void MoveToNearestObject(string tag, RangeChecker rangeChecker )
     {
+        
+        MoveToThis(tag, rangeChecker);
 
-        actionCompleted = false;
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
 
         nearestObject = rangeChecker.FindNearestObjectByTag(tag);
 
@@ -38,7 +82,7 @@ public class MoveTo : MonoBehaviour
             float distanceToTree = Vector3.Distance(transform.position, nearestObject.transform.position);
 
             // If the NPC is far enough from the tree, move towards it
-            if (distanceToTree > minimumDistanceToTree)
+            if (distanceToTree > minimumDistanceToObject)
             {
                 navMeshAgent.SetDestination(nearestObject.transform.position);
             }
@@ -48,24 +92,28 @@ public class MoveTo : MonoBehaviour
                 navMeshAgent.ResetPath();
 
                 targetRotation = CalculateTargetRotation(nearestObject.transform.position);
-                StartCoroutine(SmoothTurn(ActionCompleted));
+                StartCoroutine(SmoothTurn(SetActionCompleted));
             }
         }
         else
         {
             Debug.Log("No objects in range");
-        }      
+        }  
+        */
     }
-    private void ActionCompleted()
+
+
+
+    private void SetActionCompleted(bool actionCompleted)
     {
-        actionCompleted = true;
+        this.actionCompleted = actionCompleted;
         
     }
-    public bool isActionCompleted()
+    public bool IsActionCompleted()
     {
         return actionCompleted;
     }
-    public GameObject getNearestObject(string tag)
+    public GameObject GetNearestObject(string tag)
     {
         if(nearestObject.tag == tag)
         {
