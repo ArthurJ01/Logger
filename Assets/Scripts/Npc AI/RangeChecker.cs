@@ -11,14 +11,15 @@ public class RangeChecker
         this.gameObject = gameObject;
     }
     
-    public bool areThereObjectsInRange(GameObject obj, int range)
+    public bool AreThereObjectsInRange(GameObject obj, int range)
     {
         if (obj == null) { return false; }
 
-        float distanceToObject = Vector3.Distance(gameObject.transform.position, obj.transform.position);
-
+        float distanceToObject = Vector3.Distance(obj.transform.position, gameObject.transform.position);
+        
         if (distanceToObject < range)
         {
+            
             return true;
         }
         else
@@ -43,7 +44,7 @@ public class RangeChecker
         //is there a tree closer
         foreach (GameObject obj in objectList)
         {
-            float distanceToObject = Vector3.Distance(gameObject.transform.position, nearestObject.transform.position);
+            float distanceToObject = Vector3.Distance(gameObject.transform.position, obj.transform.position);
 
             if (distanceToObject < shortestDistance)
             {

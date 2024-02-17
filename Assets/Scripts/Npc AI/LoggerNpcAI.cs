@@ -8,7 +8,7 @@ public class LoggerNpcAI : MonoBehaviour
 
     [SerializeField] private float choppingTime = 3f; // Adjust the chopping time as needed
     [SerializeField] private int maxWalkableRange = 500000;
-    [SerializeField] private int maxActionRange = 1;
+    [SerializeField] private int maxActionRange = 5;
  
     private NavMeshAgent navMeshAgent;
     private enum NpcState { MovingToTree, Chopping, PickUpLog, Idle }
@@ -50,22 +50,16 @@ public class LoggerNpcAI : MonoBehaviour
         switch (currentState)
         {
             case NpcState.MovingToTree:
-
-               
-                
-                moveTo.MoveToNearestObject(treeTag, rangeChecker);
-                
-                
+                moveTo.MoveToNearestObject(treeTag, rangeChecker);                               
                 if(moveTo.IsActionCompleted())
                 {
                     currentState = NpcState.Idle;
-                }
-                
-
-
+                }               
                 break;
 
             case NpcState.Chopping:
+
+                tree = rangeChecker.FindNearestObjectByTag(treeTag);
                 UpdateChoppingState(tree);
                
                 break;
@@ -79,27 +73,32 @@ public class LoggerNpcAI : MonoBehaviour
                
                 log = rangeChecker.FindNearestObjectByTag(logTag);
                 tree = rangeChecker.FindNearestObjectByTag(treeTag);
-                
+/*
                 //logs in range to pickup
-                if (rangeChecker.areThereObjectsInRange(log, maxActionRange))
+                //if (rangeChecker.AreThereObjectsInRange(log, maxActionRange))
                 {
-                   // Debug.Log("There are logs in pickupable range");
+                    //remove this
+                    currentState = NpcState.MovingToTree;
                 }
                 //logs in range to walk to
-                else if (rangeChecker.areThereObjectsInRange(log, maxWalkableRange))
+               // else if (rangeChecker.AreThereObjectsInRange(log, maxWalkableRange))
                 {
-                  //  Debug.Log("There are logs in Walkable range");                                    
+                    //remove this
+                    currentState = NpcState.MovingToTree;
                 }
+*/
                 //trees in range to chop
-                else if (rangeChecker.areThereObjectsInRange(tree, maxActionRange))
+                 if (rangeChecker.AreThereObjectsInRange(tree, maxActionRange))
                 {
-                    UpdateChoppingState(nearestTree);
-                  //  Debug.Log("There are trees in choppable range");
+                    
+
+                    currentState = NpcState.Chopping;
                 }
                 //trees in range to walk to
-                else if (rangeChecker.areThereObjectsInRange(tree, maxWalkableRange))
+                else if (rangeChecker.AreThereObjectsInRange(tree, maxWalkableRange))
                 {
-                  //  Debug.Log("There are trees in Walkable range");
+                    Debug.Log("There are trees in walkable range");
+                    currentState = NpcState.MovingToTree;
                 }
                 else
                 {
@@ -117,29 +116,25 @@ public class LoggerNpcAI : MonoBehaviour
         Debug.Log("picking up log");
     }
 
-    private void UpdateChoppingState(GameObject tree)
+    private void UpdateChoppingState(GameObject t)
     {
-       
 
-        if( true)
-        {
-
-        }
+        Debug.Log("Choppiong");
 
         // Simulate chopping by waiting for a certain duration
         timer += Time.deltaTime;
         if (timer >= choppingTime)
         {
-            ChopTree(tree);
+            ChopTree(t);
            
             timer = 0f;
             
         }
     }
 
-    private void ChopTree(GameObject tree)
+    private void ChopTree(GameObject t)
     {    
-        tree.GetComponent<TreeLogic>().spawnLog();
+        t.GetComponent<TreeLogic>().spawnLog();
 
         currentState = NpcState.Idle;
     }

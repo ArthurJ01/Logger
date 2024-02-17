@@ -26,82 +26,45 @@ public class MoveTo : MonoBehaviour
             Debug.LogError("NavMeshAgent component is missing on the NPC GameObject.");
         }
 
-        //navMeshAgent.stoppingDistance = minimumDistanceToObject;
+        
         actionCompleted = false;
         actionStarted = false;
     }
 
     private void MoveToThis(string tag, RangeChecker rangeChecker)
     {
-        nearestObject = rangeChecker.FindNearestObjectByTag(tag);
-        Transform objWaypoint = nearestObject.transform.Find("waypoint");
-        distanceToTree = Vector3.Distance(transform.position, objWaypoint.position);
-           
-        if (objWaypoint != null && !navMeshAgent.hasPath)
-        {                
-            navMeshAgent.SetDestination(objWaypoint.position);               
-            actionCompleted = false;              
-        }
-        else
-        {               
-            Debug.Log("No objects in range");
-        }
-        /*
-        if (navMeshAgent.hasPath)
-        {
-            if (navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
-            {
-               // navMeshAgent.ResetPath();
-                SetActionCompleted(true);
-            }
-        }
-        */
+
     }
 
     public void MoveToNearestObject(string tag, RangeChecker rangeChecker )
     {
-        
-        MoveToThis(tag, rangeChecker);
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-
         nearestObject = rangeChecker.FindNearestObjectByTag(tag);
+        Transform objWaypoint = nearestObject.transform.Find("waypoint");
+        distanceToTree = Vector3.Distance(transform.position, objWaypoint.position);
+        //Debug.Log(actionCompleted);
 
-        if (nearestObject != null)
+        if (objWaypoint != null)
         {
-            float distanceToTree = Vector3.Distance(transform.position, nearestObject.transform.position);
-
-            // If the NPC is far enough from the tree, move towards it
-            if (distanceToTree > minimumDistanceToObject)
-            {
-                navMeshAgent.SetDestination(nearestObject.transform.position);
-            }
-            else
-            {
-                // Stop the NPC when it is close enough to the tree
-                navMeshAgent.ResetPath();
-
-                targetRotation = CalculateTargetRotation(nearestObject.transform.position);
-                StartCoroutine(SmoothTurn(SetActionCompleted));
-            }
+            navMeshAgent.SetDestination(objWaypoint.position);           
+            actionCompleted = false;
         }
         else
         {
             Debug.Log("No objects in range");
-        }  
-        */
+        }
+        if(navMeshAgent.hasPath)
+        {
+            actionStarted = true;
+        }
+        
+        if (!navMeshAgent.hasPath && !actionCompleted && actionStarted)
+        {
+            actionCompleted = true;
+            actionStarted = false;
+
+            Debug.Log("path done");
+        }
+        
     }
 
 
