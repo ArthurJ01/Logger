@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tree
   - Log
+  - LogDrop
   layers:
   - Default
   - TransparentFX

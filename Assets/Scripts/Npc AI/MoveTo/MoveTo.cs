@@ -47,7 +47,7 @@ public class MoveTo : MonoBehaviour
             actionCompleted = true;
             actionStarted = false;
 
-            Debug.Log("path done");
+           // Debug.Log("path done");
         }
         
     }
