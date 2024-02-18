@@ -11,8 +11,8 @@ public class LoggerNpcAI : MonoBehaviour
     [SerializeField] private int maxActionRange = 5;
  
     private NavMeshAgent navMeshAgent;
-    private enum NpcState { MovingToTree, Chopping, PickUpLog, Idle }
-    private NpcState currentState = NpcState.MovingToTree;
+    private enum NpcState { MovingToTree, MovingToLog, Chopping, PickUpLog, Idle }
+    private NpcState currentState = NpcState.Idle;
     private float timer = 0;
 
     private string treeTag = "Tree";
@@ -49,6 +49,16 @@ public class LoggerNpcAI : MonoBehaviour
     {
         switch (currentState)
         {
+            case NpcState.MovingToLog:
+
+                moveTo.MoveToNearestObject(logTag, rangeChecker);
+                if (moveTo.IsActionCompleted())
+                {
+                    currentState = NpcState.Idle;
+                }
+
+                break;
+
             case NpcState.MovingToTree:
                 moveTo.MoveToNearestObject(treeTag, rangeChecker);                               
                 if(moveTo.IsActionCompleted())
@@ -73,22 +83,23 @@ public class LoggerNpcAI : MonoBehaviour
                
                 log = rangeChecker.FindNearestObjectByTag(logTag);
                 tree = rangeChecker.FindNearestObjectByTag(treeTag);
-/*
+
                 //logs in range to pickup
-                //if (rangeChecker.AreThereObjectsInRange(log, maxActionRange))
+                if (rangeChecker.AreThereObjectsInRange(log, maxActionRange))
                 {
                     //remove this
-                    currentState = NpcState.MovingToTree;
+                    currentState = NpcState.PickUpLog;
                 }
+
                 //logs in range to walk to
-               // else if (rangeChecker.AreThereObjectsInRange(log, maxWalkableRange))
+                else if (rangeChecker.AreThereObjectsInRange(log, maxWalkableRange))
                 {
                     //remove this
-                    currentState = NpcState.MovingToTree;
+                    currentState = NpcState.MovingToLog;
                 }
-*/
+
                 //trees in range to chop
-                 if (rangeChecker.AreThereObjectsInRange(tree, maxActionRange))
+                 else if (rangeChecker.AreThereObjectsInRange(tree, maxActionRange))
                 {
                     
 
@@ -114,6 +125,19 @@ public class LoggerNpcAI : MonoBehaviour
     private void PickUpLog()
     {
         Debug.Log("picking up log");
+        log = rangeChecker.FindNearestObjectByTag(logTag);
+
+        timer += Time.deltaTime;
+        if (timer >= choppingTime)
+        {
+            log.SetActive(false);
+            
+            timer = 0f;
+            currentState = NpcState.Idle;
+        }
+        
+
+        
     }
 
     private void UpdateChoppingState(GameObject t)

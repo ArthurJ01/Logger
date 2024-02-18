@@ -2,10 +2,13 @@ Goals for logger:
 
 -lumberjack ai:
 
+
+//needs cleaning up
 Split up states to classes:
 	
-	make all states go back to idle
-
+	make all states go back to idle //done
+	
+//all done
 	Idle: 	Are there trees in range to chop?
 		Are there logs in range to pickup?
 		Are there logs in range to walk to?
@@ -14,8 +17,11 @@ Split up states to classes:
 			go to rest area
 
 	walk to tree (MoveToTree class) //done
-	cut tree 
-	pick up tree
+	cut tree //done
+	pick up tree //done
+
+FIX THIS NEXT:
+	make building by water, make npc go to building to drop in river
 	walk to river
 	drop in river
 
