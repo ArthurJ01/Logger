@@ -95,6 +95,7 @@ public class LoggerNpcAI : MonoBehaviour
                 log = rangeChecker.FindNearestObjectByTag(logTag);
                 tree = rangeChecker.FindNearestObjectByTag(treeTag);
 
+                //Carrying max amount of logs
                 if(logsCarried >= maxLogsCarried)
                 {
                     currentState = NpcState.DropLog;
@@ -111,12 +112,9 @@ public class LoggerNpcAI : MonoBehaviour
                     //remove this
                     currentState = NpcState.MovingToLog;
                 }
-
                 //trees in range to chop
                  else if (rangeChecker.AreThereObjectsInRange(tree, maxActionRange))
-                {
-                    
-
+                {                   
                     currentState = NpcState.Chopping;
                 }
                 //trees in range to walk to
@@ -124,6 +122,11 @@ public class LoggerNpcAI : MonoBehaviour
                 {
                     //Debug.Log("There are trees in walkable range");
                     currentState = NpcState.MovingToTree;
+                }
+                //if there are any logs left in inventory
+                else if (logsCarried > 0)
+                {
+                    currentState = NpcState.DropLog;
                 }
                 else
                 {
