@@ -2082,14 +2082,6 @@ PrefabInstance:
       value: LoggerNpc
       objectReference: {fileID: 0}
     - target: {fileID: 7218517194023409670, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
-      propertyPath: maxActionRange
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7218517194023409670, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
-      propertyPath: maxWalkableRange
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7218517194023409670, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
       propertyPath: logDropOffStation
       value: 
       objectReference: {fileID: 1125445723}
@@ -2138,16 +2130,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7218517194023409672, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
-      propertyPath: m_Height
-      value: 1.48
-      objectReference: {fileID: 0}
-    - target: {fileID: 7218517194023409672, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
-      propertyPath: m_BaseOffset
-      value: 0.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 7218517194023409672, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 0
+      propertyPath: m_AngularSpeed
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
