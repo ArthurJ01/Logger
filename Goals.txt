@@ -21,3 +21,17 @@ Fix logDropStation code
 
 -player input
 	buy more lumberjacks
+
+
+Graphics:
+
+Animate lumberjack
+
+model log
+
+model logdrop station
+
+model 2 more trees
+
+model pickup station
+model net
