@@ -707,23 +707,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1073746044 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6778371096116502132, guid: 48abf62c400be7c449a0e616e7272c22, type: 3}
-  m_PrefabInstance: {fileID: 1995273991}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1073746048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073746044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 428a6259fca0a964d91b6e3535bc7b02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1125445723 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 96791816574210719, guid: f75b749b871bed747814218f5a2eb95b, type: 3}
@@ -1616,25 +1599,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6778371096116502132, guid: 48abf62c400be7c449a0e616e7272c22, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 7603763451820719607, guid: 48abf62c400be7c449a0e616e7272c22, type: 3}
       propertyPath: m_Name
       value: Log
-      objectReference: {fileID: 0}
-    - target: {fileID: 7603763451820719607, guid: 48abf62c400be7c449a0e616e7272c22, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7603763451820719607, guid: 48abf62c400be7c449a0e616e7272c22, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 8553162700269830558, guid: 48abf62c400be7c449a0e616e7272c22, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9194497077938897314, guid: 48abf62c400be7c449a0e616e7272c22, type: 3}
       propertyPath: m_RootOrder
