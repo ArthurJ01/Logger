@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FireMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 5edadfa6e1008294ea973459f5e04f09, type: 3}
+  m_Name: AdditiveFireMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 905572c6aad734845a9ef16aceb82497, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -109,7 +109,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _TwirlStrength: 3.86
+    - _TwirlStrength: 8
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
