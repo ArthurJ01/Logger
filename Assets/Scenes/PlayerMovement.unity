@@ -268,11 +268,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
+--- !u!1 &1033705650 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4402193147191461207, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
+  m_PrefabInstance: {fileID: 643223982}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1033705654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3917124503459717101, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
   m_PrefabInstance: {fileID: 643223982}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1033705657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033705650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b358974e3096649bf46be69cb9b2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treeLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &1042681040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -371,6 +391,10 @@ PrefabInstance:
     - target: {fileID: 4171654191017145832, guid: 4dc2e6e318b4cac4d8c2111476be3742, type: 3}
       propertyPath: m_Name
       value: cutRadius
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531645467367300912, guid: 4dc2e6e318b4cac4d8c2111476be3742, type: 3}
+      propertyPath: m_Name
+      value: CuttingRange
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dc2e6e318b4cac4d8c2111476be3742, type: 3}

@@ -21,6 +21,7 @@ public class CharacterControllerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
+
     void Update()
     {
         // Ground check
