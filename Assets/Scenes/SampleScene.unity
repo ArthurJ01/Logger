@@ -2243,7 +2243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4402193147191461207, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
@@ -2257,6 +2257,10 @@ PrefabInstance:
     - target: {fileID: 7218517194023409667, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
       propertyPath: m_Name
       value: LoggerNpc
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218517194023409667, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7218517194023409670, guid: c12efefe27c3ab743afbe6bda9e072ff, type: 3}
       propertyPath: logDropOffStation
