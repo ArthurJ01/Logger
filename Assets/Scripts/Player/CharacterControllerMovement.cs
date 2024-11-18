@@ -13,7 +13,6 @@ public class CharacterControllerMovement : MonoBehaviour
     public float friction = 5f; // Friction multiplier to slow down movement
     public float rotationSpeed = 10f;
 
-    private float turnSmoothVelocity;
     private Vector3 velocity;
     private Vector3 currentMovement;
     private bool isGrounded;
