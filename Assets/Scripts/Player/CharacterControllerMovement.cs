@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class CharacterControllerMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    [SerializeField, Tooltip("The CharacterController component attached to the player.")]
+    private CharacterController controller;
 
-    public float speed = 6f;
-    public float turnSmoothTime = 0.1f;
-    public float gravity = -9.81f;
-    public float jumpHeight = 1.5f;
-    public float friction = 5f; // Friction multiplier to slow down movement
-    public float rotationSpeed = 10f;
+    [SerializeField, Tooltip("The speed at which the player moves.")]
+    private float speed = 6f;
+
+    [SerializeField, Tooltip("Time it takes to smooth the player's turning.")]
+    private float turnSmoothTime = 0.1f;
+
+    [SerializeField, Tooltip("The gravity applied to the player when falling.")]
+    private float gravity = -10f;
+
+    [SerializeField, Tooltip("The height the player can jump.")]
+    private float jumpHeight = 1.5f;
+
+    [SerializeField, Tooltip("How quickly the player's movement slows down when there's no input.")]
+    private float friction = 5f;
+
+    [SerializeField, Tooltip("Speed at which the player rotates to face a target direction.")]
+    private float rotationSpeed = 10f;
 
     private Vector3 velocity;
     private Vector3 currentMovement;
@@ -30,7 +42,7 @@ public class CharacterControllerMovement : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // TODO: Change to variable
+            velocity.y = -2f;
         }
 
         // Movement input
