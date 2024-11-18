@@ -11,6 +11,7 @@ public class CharacterControllerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 1.5f;
     public float friction = 5f; // Friction multiplier to slow down movement
+    public float rotationSpeed = 10f;
 
     private float turnSmoothVelocity;
     private Vector3 velocity;
@@ -21,6 +22,7 @@ public class CharacterControllerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
+    public Transform cameraTransform; // Reference to the camera's transform
 
     void Update()
     {
@@ -29,7 +31,7 @@ public class CharacterControllerMovement : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f;
+            velocity.y = -2f; // TODO: Change to variable
         }
 
         // Movement input
@@ -40,35 +42,43 @@ public class CharacterControllerMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            // Calculate the target angle the player should face
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            // Convert input direction to camera-relative direction
+            Vector3 cameraForward = cameraTransform.forward;
+            Vector3 cameraRight = cameraTransform.right;
 
-            // Smoothly rotate towards the target angle
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            // Keep movement on the horizontal plane
+            cameraForward.y = 0f;
+            cameraRight.y = 0f;
 
-            // Move the player in the direction they are facing
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            currentMovement = moveDir.normalized * speed; // Set the current movement vector
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+
+            Vector3 moveDir = (cameraForward * vertical + cameraRight * horizontal).normalized * speed;
+            currentMovement = moveDir; // Set the current movement vector
         }
         else
         {
             currentMovement = Vector3.Lerp(currentMovement, Vector3.zero, friction * Time.deltaTime);
         }
 
-
         // Apply movement
         controller.Move(currentMovement * Time.deltaTime);
 
-        /* Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-        */
         // Apply gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-    }
 
+        // Rotate the player to face the mouse cursor
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Ray from the camera to mouse position
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, groundMask)) // Adjust groundMask to layer containing ground
+        {
+            Vector3 lookDirection = hitInfo.point - transform.position;
+            lookDirection.y = 0f; // Keep rotation on the horizontal plane
+            if (lookDirection.sqrMagnitude > 0.01f) // Avoid jittering when very close
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            }
+        }
+    }
 }
