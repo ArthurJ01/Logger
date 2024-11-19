@@ -6,6 +6,7 @@ public class TreeLogic : MonoBehaviour
 {
 
     [SerializeField] private GameObject logPrefab;
+    [SerializeField] private int health;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,11 @@ public class TreeLogic : MonoBehaviour
         
     }
 
+
+    public void damageTree(int dmg)
+    {
+        Debug.Log("tree damaged: " + dmg);
+    }
 
     public void spawnLog()
     {

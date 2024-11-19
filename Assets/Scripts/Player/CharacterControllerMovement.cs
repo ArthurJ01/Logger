@@ -1,39 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CharacterControllerMovement : MonoBehaviour
 {
-    [SerializeField, Tooltip("The CharacterController component attached to the player.")]
-    private CharacterController controller;
-
-    [SerializeField, Tooltip("The speed at which the player moves.")]
-    private float speed = 6f;
-
-    [SerializeField, Tooltip("Time it takes to smooth the player's turning.")]
-    private float turnSmoothTime = 0.1f;
-
-    [SerializeField, Tooltip("The gravity applied to the player when falling.")]
-    private float gravity = -10f;
-
-    [SerializeField, Tooltip("The height the player can jump.")]
-    private float jumpHeight = 1.5f;
-
-    [SerializeField, Tooltip("How quickly the player's movement slows down when there's no input.")]
-    private float friction = 5f;
-
-    [SerializeField, Tooltip("Speed at which the player rotates to face a target direction.")]
-    private float rotationSpeed = 10f;
+    [SerializeField] private CharacterController controller;
+    [SerializeField] private float speed = 6f;
+    [SerializeField] private float turnSmoothTime = 0.1f;
+    [SerializeField] private float gravity = -10f;
+    [SerializeField] private float friction = 5f;
+    [SerializeField] private float rotationSpeed = 10f;
 
     private Vector3 velocity;
     private Vector3 currentMovement;
     private bool isGrounded;
+    private Vector2 inputDirection;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
     public Transform cameraTransform; // Reference to the camera's transform
+
+    private PlayerInputActions playerInputActions;
+
+    private void Awake()
+    {
+        playerInputActions = new PlayerInputActions(); // Create it once
+    }
+
+    private void OnEnable()
+    {
+        playerInputActions.Player.Enable();
+        playerInputActions.Player.Move.performed += OnMovePerformed;
+        playerInputActions.Player.Move.canceled += OnMoveCanceled;
+    }
+
+    private void OnDisable()
+    {
+        playerInputActions.Player.Move.performed -= OnMovePerformed;
+        playerInputActions.Player.Move.canceled -= OnMoveCanceled;
+        playerInputActions.Player.Disable();
+    }
+
+    private void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        inputDirection = context.ReadValue<Vector2>();
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        inputDirection = Vector2.zero;
+    }
 
     void Update()
     {
@@ -45,13 +64,8 @@ public class CharacterControllerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        // Movement input
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-        if (direction.magnitude >= 0.1f)
+        // Movement
+        if (inputDirection.sqrMagnitude >= 0.1f)
         {
             // Convert input direction to camera-relative direction
             Vector3 cameraForward = cameraTransform.forward;
@@ -64,7 +78,7 @@ public class CharacterControllerMovement : MonoBehaviour
             cameraForward.Normalize();
             cameraRight.Normalize();
 
-            Vector3 moveDir = (cameraForward * vertical + cameraRight * horizontal).normalized * speed;
+            Vector3 moveDir = (cameraForward * inputDirection.y + cameraRight * inputDirection.x).normalized * speed;
             currentMovement = moveDir; // Set the current movement vector
         }
         else
@@ -80,7 +94,7 @@ public class CharacterControllerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         // Rotate the player to face the mouse cursor
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Ray from the camera to mouse position
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()); // Ray from the camera to mouse position
         if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, groundMask)) // Adjust groundMask to layer containing ground
         {
             Vector3 lookDirection = hitInfo.point - transform.position;
