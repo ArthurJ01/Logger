@@ -62,6 +62,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pickup"",
+                    ""type"": ""Button"",
+                    ""id"": ""849dbf9e-cac0-40ca-84a5-aaf0f4f9f40e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -317,6 +326,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""RotateCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa7b6c15-ed74-4cfb-bf23-60eb93f26c84"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pickup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -906,6 +926,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_AxeHit = m_Player.FindAction("AxeHit", throwIfNotFound: true);
         m_Player_RotateCamera = m_Player.FindAction("RotateCamera", throwIfNotFound: true);
+        m_Player_Pickup = m_Player.FindAction("Pickup", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -981,6 +1002,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_AxeHit;
     private readonly InputAction m_Player_RotateCamera;
+    private readonly InputAction m_Player_Pickup;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -989,6 +1011,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @AxeHit => m_Wrapper.m_Player_AxeHit;
         public InputAction @RotateCamera => m_Wrapper.m_Player_RotateCamera;
+        public InputAction @Pickup => m_Wrapper.m_Player_Pickup;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1010,6 +1033,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @RotateCamera.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateCamera;
                 @RotateCamera.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateCamera;
                 @RotateCamera.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateCamera;
+                @Pickup.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickup;
+                @Pickup.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickup;
+                @Pickup.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickup;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1026,6 +1052,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @RotateCamera.started += instance.OnRotateCamera;
                 @RotateCamera.performed += instance.OnRotateCamera;
                 @RotateCamera.canceled += instance.OnRotateCamera;
+                @Pickup.started += instance.OnPickup;
+                @Pickup.performed += instance.OnPickup;
+                @Pickup.canceled += instance.OnPickup;
             }
         }
     }
@@ -1186,6 +1215,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnAxeHit(InputAction.CallbackContext context);
         void OnRotateCamera(InputAction.CallbackContext context);
+        void OnPickup(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
