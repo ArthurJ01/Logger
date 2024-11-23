@@ -13,28 +13,29 @@ public class CarryingLogs : MonoBehaviour
 
 
 
-
-    public void addLogToCarried()
+    //return true if succesful, false if not. Use to check if object was added to container or not
+    public bool AddLogToCarried()
     {
         if(logsCarried < logs.Count)
         {
             logs[logsCarried].GetComponent<MeshRenderer>().enabled = true;
             logsCarried++;
+            return true;
         }
-        
+        return false;
     }
 
-    //return 1 if succesful, return 0 if empty
-    public int removeLogFromCarried()
+    //return true if succesful, false if not. Use to check if object was removed from container or not
+    public bool RemoveLogFromCarried()
     {
         if (logsCarried >= 1)
         {
             logs[logsCarried].GetComponent<MeshRenderer>().enabled = false;
             logsCarried--;
-            return 1;
+            return true;
         }
 
-        return 0;
+        return false;
     }
 
     // Start is called before the first frame update
