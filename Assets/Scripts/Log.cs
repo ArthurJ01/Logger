@@ -7,6 +7,6 @@ public class Log : MonoBehaviour
 
     public void PickupLog()
     {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }
