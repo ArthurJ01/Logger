@@ -36,7 +36,7 @@ public class TreeCutting : MonoBehaviour
     {
         if (inCuttingRange && currentTree != null)
         {
-            currentTree.GetComponent<TreeLogic>().damageTree(damage);
+            currentTree.GetComponent<TreeLogic>().DamageTree(damage);
         }
     }
 

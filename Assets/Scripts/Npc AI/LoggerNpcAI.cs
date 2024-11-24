@@ -200,7 +200,7 @@ public class LoggerNpcAI : MonoBehaviour
 
     private void ChopTree(GameObject t)
     {    
-        t.GetComponent<TreeLogic>().spawnLog();
+        t.GetComponent<TreeLogic>().SpawnLog();
 
         currentState = NpcState.Idle;
     }
