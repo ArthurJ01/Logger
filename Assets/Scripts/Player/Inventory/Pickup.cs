@@ -5,19 +5,22 @@ using UnityEngine.InputSystem;
 
 public class Pickup : MonoBehaviour
 {
-    [SerializeField] private LayerMask logLayer;
+    [SerializeField] private LayerMask interactableLayer;
+    
 
     private PlayerInputActions inputActions;
 
     private CarryingLogs carryingLogs;
+    private Inventory inventory;
 
     private bool inPickupRange = false;
-    private GameObject currentLog = null;
+    private GameObject currentInteractableObj = null;
 
 
     private void Start()
     {
         carryingLogs = this.gameObject.GetComponent<CarryingLogs>();
+        inventory = this.gameObject.GetComponent<Inventory>();
     }
 
     private void Awake()
@@ -42,33 +45,54 @@ public class Pickup : MonoBehaviour
 
     public void OnPickup(InputAction.CallbackContext context)
     {
-        bool carrySuccess = false;
-        if (inPickupRange && currentLog != null)
+
+        if (inPickupRange && currentInteractableObj != null)
         {
+            if (currentInteractableObj.TryGetComponent<IInteractable>(out IInteractable component))
+            {
+                GameObject current = component.Interact();
+                component.MakePickedUpState();
+                inventory.AddToContainer(current);
+            }
+
+            
+        }
+                  
+        /*
+        bool carrySuccess = false;
+        if (inPickupRange && currentInteractableObj != null)
+        {
+            if (currentInteractableObj.TryGetComponent<IInteractable>(out IInteractable component))
+            {
+                component.Interact();
+            }
+
             carrySuccess = carryingLogs.AddLogToCarried();
         }
         if (carrySuccess)
         {
-            currentLog.GetComponent<Log>().PickupLog();
+            GameObject returned = currentInteractableObj.GetComponent<Log>().PickupLog();
+            Debug.Log(returned);
             carrySuccess = false;
         }
-        
+        */
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (((1 << other.gameObject.layer) & logLayer) != 0)
+        if (((1 << other.gameObject.layer) & interactableLayer) != 0)
         {
             inPickupRange = true;
-            currentLog = other.gameObject;
+            currentInteractableObj = other.gameObject;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (((1 << other.gameObject.layer) & logLayer) != 0)
+        if (((1 << other.gameObject.layer) & interactableLayer) != 0)
         {
             inPickupRange = false;
-            currentLog = null;
+            currentInteractableObj = null;
         }
     }
 

@@ -49,8 +49,6 @@ public class TreeCutting : MonoBehaviour
     void Update()
     {
 
-        
-        Debug.Log(inCuttingRange);
 
     }
 
