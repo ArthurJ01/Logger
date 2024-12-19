@@ -33,17 +33,17 @@ public class Pickup : MonoBehaviour
     {
         // Enable the input actions and subscribe to the RotateCamera action
         inputActions.Player.Enable();
-        inputActions.Player.Pickup.performed += OnPickup;
+        inputActions.Player.Pickup.performed += OnPickupPress;
     }
 
     private void OnDisable()
     {
         // Unsubscribe and disable the input actions
-        inputActions.Player.Pickup.performed -= OnPickup;
+        inputActions.Player.Pickup.performed -= OnPickupPress;
         inputActions.Player.Disable();
     }
 
-    public void OnPickup(InputAction.CallbackContext context)
+    public void OnPickupPress(InputAction.CallbackContext context)
     {
 
         if (inPickupRange && currentInteractableObj != null)
@@ -51,8 +51,10 @@ public class Pickup : MonoBehaviour
             if (currentInteractableObj.TryGetComponent<IInteractable>(out IInteractable component))
             {
                 GameObject current = component.Interact();
+                Debug.Log(current.transform.position);
                 component.MakePickedUpState();
                 inventory.AddToContainer(current);
+                Debug.Log(current.transform.position);
             }
 
             

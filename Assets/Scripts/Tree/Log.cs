@@ -39,11 +39,7 @@ public class Log : MonoBehaviour,
         {
             collider.enabled = false;
         }
-    }
 
-    public GameObject PickupLog()
-    {
-        
-        return this.gameObject;
+        Debug.Log(this.transform.position);
     }
 }
