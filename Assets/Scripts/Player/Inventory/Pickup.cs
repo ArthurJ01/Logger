@@ -51,10 +51,10 @@ public class Pickup : MonoBehaviour
             if (currentInteractableObj.TryGetComponent<IInteractable>(out IInteractable component))
             {
                 GameObject current = component.Interact();
-                Debug.Log(current.transform.position);
                 component.MakePickedUpState();
                 inventory.AddToContainer(current);
-                Debug.Log(current.transform.position);
+                inPickupRange = false;
+                currentInteractableObj = null;
             }
 
             
