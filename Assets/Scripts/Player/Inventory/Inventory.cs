@@ -40,7 +40,7 @@ public class Inventory : MonoBehaviour,
 
         Debug.Log(objectToAdd);
 
-        objectToAdd.transform.SetParent(inventoryObject.transform);
+        objectToAdd.transform.SetParent(inventoryObject.transform, false);
         int offsetValue = interactable.GetObjectSizeOffset();
         objectOffset += offsetValue;
                
