@@ -13,5 +13,5 @@ public interface IInteractable
     void MakeDroppedState();
 
     //return offset to use when stacking objects in containers (size of object basically, in the stacking direction)
-    int GetObjectSizeOffset();
+    float GetObjectSizeOffset();
 }

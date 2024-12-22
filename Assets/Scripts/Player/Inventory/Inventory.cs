@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour,
 {
     [Tooltip("Add starting position of inventory")]
     [SerializeField] private GameObject inventoryObject;
-    private int objectOffset = 0;
+    private float objectOffset = 0f;
 
     // Define an enum to select which axis to adjust
     private enum OffsetAxis { X, Y, Z }
@@ -41,7 +41,7 @@ public class Inventory : MonoBehaviour,
         Debug.Log(objectToAdd);
 
         objectToAdd.transform.SetParent(inventoryObject.transform, false);
-        int offsetValue = interactable.GetObjectSizeOffset();
+        float offsetValue = interactable.GetObjectSizeOffset();
         objectOffset += offsetValue;
                
     }

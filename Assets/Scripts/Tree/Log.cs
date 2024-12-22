@@ -7,9 +7,9 @@ public class Log : MonoBehaviour,
 {
 
     [Tooltip("size of object for inventory")]
-    [SerializeField] private int objectSizeOffset;
+    [SerializeField] private float objectSizeOffset = .5f;
 
-    public int GetObjectSizeOffset()
+    public float GetObjectSizeOffset()
     {
         return objectSizeOffset;
     }
@@ -40,6 +40,6 @@ public class Log : MonoBehaviour,
             collider.enabled = false;
         }
 
-        Debug.Log(this.transform.position);
+        this.transform.rotation = Quaternion.Euler(90, 90, 0);
     }
 }
