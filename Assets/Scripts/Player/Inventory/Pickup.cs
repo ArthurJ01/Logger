@@ -66,8 +66,6 @@ public class Pickup : MonoBehaviour
         }
     }
 
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & interactableLayer) != 0)
