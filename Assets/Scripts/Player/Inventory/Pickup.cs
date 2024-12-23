@@ -16,6 +16,8 @@ public class Pickup : MonoBehaviour
     private bool inPickupRange = false;
     private GameObject currentInteractableObj = null;
 
+    private List<GameObject> interactableObjects = new List<GameObject>();
+
 
     private void Start()
     {
@@ -45,56 +47,44 @@ public class Pickup : MonoBehaviour
 
     public void OnPickupPress(InputAction.CallbackContext context)
     {
-
-        if (inPickupRange && currentInteractableObj != null)
+        if (interactableObjects.Count > 0)
         {
-            if (currentInteractableObj.TryGetComponent<IInteractable>(out IInteractable component))
+            // Pick the first object in the list
+            GameObject objectToPickup = interactableObjects[0];
+            foreach (GameObject g in interactableObjects){
+                Debug.Log("list object: " + g);
+            }
+            if (objectToPickup.TryGetComponent<IInteractable>(out IInteractable component))
             {
                 GameObject current = component.Interact();
                 component.MakePickedUpState();
                 inventory.AddToContainer(current);
-                inPickupRange = false;
-                currentInteractableObj = null;
+                
+                // Optionally remove it from the list after picking up
+                interactableObjects.Remove(objectToPickup);
             }
-
-            
         }
-                  
-        /*
-        bool carrySuccess = false;
-        if (inPickupRange && currentInteractableObj != null)
-        {
-            if (currentInteractableObj.TryGetComponent<IInteractable>(out IInteractable component))
-            {
-                component.Interact();
-            }
-
-            carrySuccess = carryingLogs.AddLogToCarried();
-        }
-        if (carrySuccess)
-        {
-            GameObject returned = currentInteractableObj.GetComponent<Log>().PickupLog();
-            Debug.Log(returned);
-            carrySuccess = false;
-        }
-        */
-
     }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & interactableLayer) != 0)
         {
-            inPickupRange = true;
-            currentInteractableObj = other.gameObject;
+            if (!interactableObjects.Contains(other.gameObject))
+            {
+                interactableObjects.Add(other.gameObject);
+            }
+            
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (((1 << other.gameObject.layer) & interactableLayer) != 0)
         {
-            inPickupRange = false;
-            currentInteractableObj = null;
+            interactableObjects.Remove(other.gameObject);
         }
     }
 
