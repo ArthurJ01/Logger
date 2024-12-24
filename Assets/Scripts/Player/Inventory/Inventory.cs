@@ -38,8 +38,6 @@ public class Inventory : MonoBehaviour,
                 break;
         }
 
-        Debug.Log(objectToAdd);
-
         objectToAdd.transform.SetParent(inventoryObject.transform, false);
         float offsetValue = interactable.GetObjectSizeOffset();
         objectOffset += offsetValue;
@@ -48,32 +46,17 @@ public class Inventory : MonoBehaviour,
 
     public GameObject RetrieveFromContainer()
     {
-        /*
-                GameObject objectToRemove = inventoryStack.Pop();
+        GameObject retrievedObject = null;
 
-                // Add the object offset to the selected axis of objectOffsetTransform
-                Vector3 newOffset = objectOffsetTransform.position;
-                float offsetValue = objectToRemove.GetComponent<IInteractable>().GetObjectSizeOffset();
+        if(inventoryStack.Count > 0)
+        {
+            retrievedObject = inventoryStack.Pop();
+            IInteractable interactable = retrievedObject.GetComponent<IInteractable>();
+            float offsetValue = interactable.GetObjectSizeOffset();
+            objectOffset -= offsetValue;
+        }
 
-                switch (offsetAxis)
-                {
-                    case OffsetAxis.X:
-                        newOffset.x -= offsetValue;
-                        break;
-                    case OffsetAxis.Y:
-                        newOffset.y -= offsetValue;
-                        break;
-                    case OffsetAxis.Z:
-                        newOffset.z -= offsetValue;
-                        break;
-                }
-
-                objectOffsetTransform.position = newOffset;
-
-                return objectToRemove;
-        */
-
-        return inventoryObject;
+        return retrievedObject;
     }
 
 }
