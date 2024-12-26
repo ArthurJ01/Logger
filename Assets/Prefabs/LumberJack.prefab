@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3653779394038221581}
   - component: {fileID: 7999173639015202629}
   - component: {fileID: 611136738}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 657017470}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: groundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1720425520}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,13 +199,14 @@ GameObject:
   m_Component:
   - component: {fileID: 3917124503459717101}
   - component: {fileID: 4122146256179865866}
+  - component: {fileID: 1350016347}
   - component: {fileID: 1033705656}
   - component: {fileID: 3927104198583590902}
   - component: {fileID: 224091871289247576}
   - component: {fileID: 5221799745526702353}
   - component: {fileID: 1350016343}
-  - component: {fileID: 1350016347}
-  m_Layer: 0
+  - component: {fileID: 5696533702365624854}
+  m_Layer: 11
   m_Name: LumberJack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,6 +250,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1350016347
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402193147191461207}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &1033705656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,8 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd12ac20a6b84546978333cc4702910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryObject: {fileID: 0}
-  offsetAxis: 2
+  inventoryObject: {fileID: 1720425519}
+  offsetAxis: 1
 --- !u!114 &224091871289247576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,22 +429,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!54 &1350016347
-Rigidbody:
+--- !u!114 &5696533702365624854
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4402193147191461207}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fce0e3c0a0881314c85492122703aff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7112588959799004799
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -479,9 +492,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -7640558969779515294, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -7146521406498821007, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -5117700066308340382, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -4714817154256824709, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -516098083770646512, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
       propertyPath: m_Name
       value: LumberJack
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8821623529969584324, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47c1e54e72572944b8cc8df9ed572f6f, type: 3}

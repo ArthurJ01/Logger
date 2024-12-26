@@ -1268,14 +1268,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3927104198583590902, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
-      propertyPath: offsetAxis
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3927104198583590902, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
-      propertyPath: inventoryObject
-      value: 
-      objectReference: {fileID: 1720425519}
     - target: {fileID: 4402193147191461207, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1666,10 +1658,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3913083055075907135, guid: 48abf62c400be7c449a0e616e7272c22, type: 3}
-      propertyPath: objectSizeOffset
-      value: 0.35
-      objectReference: {fileID: 0}
     - target: {fileID: 7603763451820719607, guid: 48abf62c400be7c449a0e616e7272c22, type: 3}
       propertyPath: m_Name
       value: MainLog (2)
@@ -3452,11 +3440,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4369546567805978, guid: 0734397d1a4fd924f98424ecb4ca43b9, type: 3}
   m_PrefabInstance: {fileID: 955565994}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1720425519 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1720425519, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
-  m_PrefabInstance: {fileID: 643223982}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1743055065 stripped
 Transform:
