@@ -37,7 +37,7 @@ public class Log : MonoBehaviour,
 
     public void MakeDroppedState()
     {
-        rigidbody.isKinematic = false;
+        
         BoxCollider[] colliders = this.gameObject.GetComponents<BoxCollider>();
 
         // Iterate through the array and disable each one
@@ -46,20 +46,12 @@ public class Log : MonoBehaviour,
             collider.enabled = true;
         }
 
-        
+        rigidbody.isKinematic = false;
     }
 
     public void MakePickedUpState()
     {
         BoxCollider[] colliders = this.gameObject.GetComponents<BoxCollider>();
-
-        // Iterate through the array and disable each one
-        foreach (BoxCollider collider in colliders)
-        {
-            collider.enabled = false;
-        }
-
-        this.transform.rotation = Quaternion.Euler(90, 90, 0);
 
         Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
 
@@ -67,5 +59,16 @@ public class Log : MonoBehaviour,
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
+        this.transform.rotation = Quaternion.Euler(90, 90, 0);
+
+        // Iterate through the array and disable each one
+        foreach (BoxCollider collider in colliders)
+        {
+            collider.enabled = false;
+        }
+
+        
+
+
     }
 }
