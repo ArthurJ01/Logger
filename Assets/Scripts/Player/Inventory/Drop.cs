@@ -62,6 +62,6 @@ public class Drop : MonoBehaviour
 
         objectToDrop.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
 
-        Debug.Log($"Force applied: {force}, Position: {objectToDrop.transform.position}");
+        Debug.Log(objectToDrop.GetComponent<Rigidbody>().velocity);
     }
 }

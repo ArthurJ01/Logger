@@ -37,6 +37,7 @@ public class Log : MonoBehaviour,
 
     public void MakeDroppedState()
     {
+        rigidbody.isKinematic = false;
         BoxCollider[] colliders = this.gameObject.GetComponents<BoxCollider>();
 
         // Iterate through the array and disable each one
@@ -45,7 +46,7 @@ public class Log : MonoBehaviour,
             collider.enabled = true;
         }
 
-        rigidbody.isKinematic = false;
+        
     }
 
     public void MakePickedUpState()
