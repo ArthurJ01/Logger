@@ -5,8 +5,15 @@ using UnityEngine.InputSystem;
 
 public class Drop : MonoBehaviour
 {
+
+    [SerializeField] private string containerTag;
     private PlayerInputActions inputActions;
     private Inventory inventory;
+
+    private List<GameObject> nearbyContainers = new List<GameObject>();
+
+    private enum DropState {Ground, Container};
+    private DropState dropState = DropState.Ground;
 
     private void Start()
     {
@@ -33,35 +40,71 @@ public class Drop : MonoBehaviour
         inputActions.Player.Disable();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == containerTag)
+        {
+            dropState = DropState.Container;
+            nearbyContainers.Add(other.gameObject);
+            Debug.Log("Container nearby");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == containerTag)
+        {
+            nearbyContainers.Remove(other.gameObject);
+            Debug.Log("Leaving Container");
+        }
+        if (nearbyContainers.Count <= 0){
+            dropState = DropState.Ground;
+            Debug.Log("No Containers nearby");
+        }
+    }
+
+
     public void DropItem(InputAction.CallbackContext context)
     {
-        Debug.Log("dropping");
-
         GameObject objectToDrop = inventory.RetrieveFromContainer();
 
         if (objectToDrop == null)
         {
-            Debug.Log("nothing in inventory");
-            return;
+            Debug.Log("nothing in inventory"); return;
         }
-
-        Debug.Log("dropping: " + objectToDrop);
-        objectToDrop.TryGetComponent<IInteractable>(out IInteractable component);
-        component.MakeDroppedState();
-
         objectToDrop.transform.SetParent(null);
-        objectToDrop.transform.position = this.gameObject.transform.position + transform.forward;
+        objectToDrop.TryGetComponent<IInteractable>(out IInteractable component);
 
-        Vector3 localForceDirection = new Vector3(0, 4, 1).normalized; // Local 45-degree angle
+        switch (dropState)
+        {
+            case DropState.Container:
 
-        // Convert the local direction to world space
-        Vector3 worldForceDirection = transform.TransformDirection(localForceDirection);
+                Debug.Log(nearbyContainers[0]);
 
-        // Calculate the force vector
-        Vector3 force = worldForceDirection * 1;
+                GameObject container = nearbyContainers[0];
+                component.MakePickedUpState();
+                container.GetComponent<Inventory>().AddToContainer(objectToDrop);
+                    
+                break;
 
-        objectToDrop.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
 
-        Debug.Log(objectToDrop.GetComponent<Rigidbody>().velocity);
+            case DropState.Ground:
+
+                
+                component.MakeDroppedState();
+                objectToDrop.transform.position = this.gameObject.transform.position + transform.forward;
+
+                Vector3 localForceDirection = new Vector3(0, 4, 1).normalized; // Local 45-degree angle
+
+                // Convert the local direction to world space
+                Vector3 worldForceDirection = transform.TransformDirection(localForceDirection);
+
+                // Calculate the force vector
+                Vector3 force = worldForceDirection * 1;
+
+                objectToDrop.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+
+                break;
+        }
     }
 }

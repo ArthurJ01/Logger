@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 3532700438849033763}
   - component: {fileID: 3930539837653083660}
   m_Layer: 0
-  m_Name: CartWithCollider
+  m_Name: CartBaseAsset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

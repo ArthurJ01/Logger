@@ -202,7 +202,6 @@ GameObject:
   - component: {fileID: 1350016347}
   - component: {fileID: 1033705656}
   - component: {fileID: 3927104198583590902}
-  - component: {fileID: 224091871289247576}
   - component: {fileID: 5221799745526702353}
   - component: {fileID: 1350016343}
   - component: {fileID: 5696533702365624854}
@@ -304,22 +303,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryObject: {fileID: 1720425519}
   offsetAxis: 1
---- !u!114 &224091871289247576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4402193147191461207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab0d6e17cb76b8540986e58b7de7fb97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &5221799745526702353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,6 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce0e3c0a0881314c85492122703aff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  containerTag: Container
 --- !u!1001 &7112588959799004799
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -50,6 +50,7 @@ public class Interact : MonoBehaviour
             GameObject objectToPickup = interactableObjects[0];
             if (objectToPickup.TryGetComponent<IInteractable>(out IInteractable component))
             {
+                //component.Interact() just returns the gameObject, probably useless? fix later
                 GameObject current = component.Interact();
                 component.MakePickedUpState();
                 inventory.AddToContainer(current);
