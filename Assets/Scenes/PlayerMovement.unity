@@ -1175,6 +1175,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3927104198583590902, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
+      propertyPath: inventorySize
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4402193147191461207, guid: f7c24720e664ae248ae08b51e9f4c4ed, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3861,6 +3865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryObject: {fileID: 337554387}
+  inventorySize: 5
   offsetAxis: 2
 --- !u!1001 &2800959567197015294
 PrefabInstance:
@@ -3977,6 +3982,10 @@ PrefabInstance:
     - target: {fileID: 4497305124241383616, guid: b7fa7e650d34f22488c89e16a78a4775, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287980108931045529, guid: b7fa7e650d34f22488c89e16a78a4775, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.77
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7fa7e650d34f22488c89e16a78a4775, type: 3}

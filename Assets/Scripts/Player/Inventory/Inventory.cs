@@ -5,8 +5,12 @@ using UnityEngine;
 public class Inventory : MonoBehaviour,
     IContainer
 {
-    [Tooltip("Add starting position of inventory")]
+    [Tooltip("starting position of inventory")]
     [SerializeField] private GameObject inventoryObject;
+
+    [Tooltip("max amount of objects in inventory")]
+    [SerializeField] private int inventorySize;
+
     private float objectOffset = 0f;
 
     // Define an enum to select which axis to adjust
@@ -19,8 +23,6 @@ public class Inventory : MonoBehaviour,
 
     public void AddToContainer(GameObject objectToAdd)
     {
-
-
         inventoryStack.Push(objectToAdd);
         IInteractable interactable = objectToAdd.GetComponent<IInteractable>();
 
@@ -57,6 +59,18 @@ public class Inventory : MonoBehaviour,
         }
 
         return retrievedObject;
+    }
+
+    public bool IsInventoryFull()
+    {
+        if(inventoryStack.Count >= inventorySize)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

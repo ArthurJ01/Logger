@@ -66,20 +66,35 @@ public class Drop : MonoBehaviour
 
     public void DropItem(InputAction.CallbackContext context)
     {
-        GameObject objectToDrop = inventory.RetrieveFromContainer();
+        //check nearby containers, if there is one check if it's full, and if it is, return
+        //this is here because we need to do inventory.retrieve before the switch case, I think, can't find solution without
+        if(nearbyContainers.Count > 0)
+        {
+            GameObject container = nearbyContainers[0];
+            bool isInventoryFull = container.GetComponent<Inventory>().IsInventoryFull();
 
+            if (isInventoryFull)
+            {
+                Debug.Log("inventory is full");
+                return;
+            }
+        }
+
+        //get object from inventory, check that there is an object
+        GameObject objectToDrop = inventory.RetrieveFromContainer();
         if (objectToDrop == null)
         {
-            Debug.Log("nothing in inventory"); return;
+            Debug.Log("nothing in inventory");
+            return;
         }
-        objectToDrop.transform.SetParent(null);
+
+        //setup needed for both cases
         objectToDrop.TryGetComponent<IInteractable>(out IInteractable component);
+        objectToDrop.transform.SetParent(null);
 
         switch (dropState)
         {
             case DropState.Container:
-
-                Debug.Log(nearbyContainers[0]);
 
                 GameObject container = nearbyContainers[0];
                 component.MakePickedUpState();
@@ -90,7 +105,7 @@ public class Drop : MonoBehaviour
 
             case DropState.Ground:
 
-                
+
                 component.MakeDroppedState();
                 objectToDrop.transform.position = this.gameObject.transform.position + transform.forward;
 

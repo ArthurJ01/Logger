@@ -46,6 +46,14 @@ public class Interact : MonoBehaviour
     {
         if (interactableObjects.Count > 0)
         {
+            bool isInventoryFull = inventory.IsInventoryFull();
+
+            if (isInventoryFull)
+            {
+                Debug.Log("inventory is full");
+                return;
+            }
+
             // Pick the first object in the list
             GameObject objectToPickup = interactableObjects[0];
             if (objectToPickup.TryGetComponent<IInteractable>(out IInteractable component))
