@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Log : MonoBehaviour,
-    IInteractable
+    IInteractable,
+    ISellable
 {
 
     [Tooltip("size of object for inventory")]
     [SerializeField] private float objectSizeOffset = .5f;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] private int sellAmount = 5;
     private Rigidbody rigidbody;
 
 
@@ -66,9 +68,10 @@ public class Log : MonoBehaviour,
         {
             collider.enabled = false;
         }
+    }
 
-        
-
-
+    public int GetSellAmount()
+    {
+        return sellAmount;
     }
 }

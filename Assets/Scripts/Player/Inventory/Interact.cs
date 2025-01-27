@@ -46,7 +46,7 @@ public class Interact : MonoBehaviour
     {
         if (interactableObjects.Count > 0)
         {
-            bool isInventoryFull = inventory.IsInventoryFull();
+             bool isInventoryFull = inventory.IsInventoryFull();
 
             if (isInventoryFull)
             {
@@ -54,14 +54,30 @@ public class Interact : MonoBehaviour
                 return;
             }
 
+            
+
             // Pick the first object in the list
-            GameObject objectToPickup = interactableObjects[0];
+            GameObject interactableObject = interactableObjects[0];
+            GameObject objectToPickup;
+
+            //if object is a container
+            if (interactableObject.TryGetComponent<IContainer>(out IContainer container))
+            {
+                objectToPickup = container.RetrieveFromContainer();
+            }
+            else
+            {
+                objectToPickup = interactableObject;
+            }
+
             if (objectToPickup.TryGetComponent<IInteractable>(out IInteractable component))
             {
                 //component.Interact() just returns the gameObject, probably useless? fix later
-                GameObject current = component.Interact();
+                //TODO: use Interact to make pickup work with containers. Container returns item to pick up
+                //maybe not ig
+                //GameObject current = component.Interact();
                 component.MakePickedUpState();
-                inventory.AddToContainer(current);
+                inventory.AddToContainer(objectToPickup);
                 interactableObjects.Remove(objectToPickup);
             }
         }

@@ -5,5 +5,7 @@ using UnityEngine;
 public interface IContainer
 {
     void AddToContainer(GameObject objectToAdd);
-    GameObject RetrieveFromContainer(); 
+    GameObject RetrieveFromContainer();
+
+    bool IsInventoryFull();
 }

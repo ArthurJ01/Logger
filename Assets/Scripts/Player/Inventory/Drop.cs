@@ -63,7 +63,7 @@ public class Drop : MonoBehaviour
         }
     }
 
-
+    //drop item, either on ground or in container
     public void DropItem(InputAction.CallbackContext context)
     {
         //check nearby containers, if there is one check if it's full, and if it is, return
@@ -71,7 +71,9 @@ public class Drop : MonoBehaviour
         if(nearbyContainers.Count > 0)
         {
             GameObject container = nearbyContainers[0];
-            bool isInventoryFull = container.GetComponent<Inventory>().IsInventoryFull();
+            IContainer containerInterface = container.GetComponent<IContainer>();
+
+            bool isInventoryFull = containerInterface.IsInventoryFull();
 
             if (isInventoryFull)
             {
@@ -98,7 +100,8 @@ public class Drop : MonoBehaviour
 
                 GameObject container = nearbyContainers[0];
                 component.MakePickedUpState();
-                container.GetComponent<Inventory>().AddToContainer(objectToDrop);
+                IContainer containerInterface = container.GetComponent<IContainer>();
+                containerInterface.AddToContainer(objectToDrop);
                     
                 break;
 
